@@ -33,12 +33,12 @@ export function WhyRevoltric() {
         </SectionReveal>
         <SectionReveal delay={0.1}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight max-w-4xl">
-            Why <span className="text-gradient">REVOLTRIC?</span>
+            Why <span className="text-gradient">Revoltric?</span>
           </h2>
         </SectionReveal>
         <SectionReveal delay={0.2}>
           <p className="mt-6 text-lg text-white/40 max-w-2xl leading-relaxed">
-            Built on professional expertise, quality commitment, and genuine understanding of healthcare needs.
+            Built on deep product expertise, transparent pricing, and genuine understanding of how healthcare facilities operate.
           </p>
         </SectionReveal>
 

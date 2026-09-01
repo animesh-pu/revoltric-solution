@@ -65,7 +65,7 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan/20 bg-cyan/[0.05] text-cyan text-xs font-medium tracking-wider uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-            Complete Hospital & Diagnostic Solutions
+            Revoltric Solutions — Medical Equipment & Diagnostics
           </span>
         </motion.div>
 
@@ -78,7 +78,7 @@ export function Hero() {
         >
           <span className="text-white">Powering Healthcare.</span>
           <br />
-          <span className="text-gradient">Delivering Complete Solutions.</span>
+          <span className="text-gradient">Delivering Every Solution.</span>
         </motion.h1>
 
         {/* Supporting Text */}
@@ -88,7 +88,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-12"
         >
-          Complete hospital and diagnostic solutions — from radiology and pathology to essential healthcare equipment and infrastructure.
+          Professional-grade medical equipment, laboratory systems, and healthcare infrastructure — sourced, supplied, and supported by one dedicated partner.
         </motion.p>
 
         {/* CTAs */}
@@ -100,7 +100,7 @@ export function Hero() {
         >
           <Link to="/#solutions">
             <Button className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)]">
-              Explore Solutions
+              Browse Products
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -109,7 +109,7 @@ export function Hero() {
               variant="outline"
               className="border-white/10 hover:border-cyan/30 text-white/70 hover:text-white font-medium px-8 py-3.5 rounded-lg text-base transition-all duration-300 bg-transparent hover:bg-white/[0.03]"
             >
-              Contact Us
+              Schedule a Demo
             </Button>
           </Link>
         </motion.div>

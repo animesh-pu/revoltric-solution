@@ -15,15 +15,15 @@ export function CtaSection() {
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <SectionReveal>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight">
-            Building a Healthcare Facility?
+            Need Medical Equipment or Lab Systems?
             <br />
-            <span className="text-gradient">Let's Build the Solution.</span>
+            <span className="text-gradient">Let's Find the Right Solution.</span>
           </h2>
         </SectionReveal>
 
         <SectionReveal delay={0.15}>
           <p className="mt-8 text-lg text-white/40 max-w-2xl mx-auto leading-relaxed">
-            Tell us what you need. Our team will help you identify the right products and complete healthcare solutions for your facility.
+            Browse our full catalogue or book a consultation. Our specialists will help you select, configure, and deliver the right equipment for your facility.
           </p>
         </SectionReveal>
 
@@ -31,7 +31,7 @@ export function CtaSection() {
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/#contact">
               <Button className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)]">
-                Request a Quote
+                Browse Products
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -41,7 +41,7 @@ export function CtaSection() {
                 className="border-white/10 hover:border-cyan/30 text-white/70 hover:text-white font-medium px-8 py-3.5 rounded-lg text-base transition-all duration-300 bg-transparent hover:bg-white/[0.03]"
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
-                Talk to REVOLTRIC
+                Book a Demo
               </Button>
             </a>
           </div>

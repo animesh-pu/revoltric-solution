@@ -21,12 +21,12 @@ export function ProjectSolutions() {
         </SectionReveal>
         <SectionReveal delay={0.1}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight max-w-4xl">
-            From Requirement to Delivery.
+            From Consultation to Commissioning.
           </h2>
         </SectionReveal>
         <SectionReveal delay={0.2}>
           <p className="mt-6 text-lg text-white/40 max-w-2xl leading-relaxed">
-            REVOLTRIC supports healthcare projects at every stage — from identifying requirements to installation and ongoing support.
+            We guide you through every stage — from initial consultation and product selection to delivery, installation, and ongoing support.
           </p>
         </SectionReveal>
 

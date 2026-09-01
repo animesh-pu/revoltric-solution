@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight, ShoppingCart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/data/content";
 import { Button } from "@/components/ui/button";
 
-export function Navigation() {
+interface NavigationProps {
+  cartCount?: number;
+  isLoggedIn?: boolean;
+}
+
+export function Navigation({ cartCount = 0, isLoggedIn = false }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
+  const [location, setLocation] = useState({ pathname: "/", hash: "" });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -17,9 +22,19 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Track location via URL
+  useEffect(() => {
+    const updateLocation = () => {
+      setLocation({ pathname: window.location.pathname, hash: window.location.hash });
+    };
+    updateLocation();
+    window.addEventListener("popstate", updateLocation);
+    return () => window.removeEventListener("popstate", updateLocation);
+  }, []);
+
   useEffect(() => {
     setMobileOpen(false);
-  }, [location]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -45,16 +60,21 @@ export function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2.5 group">
             <div className="relative">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan to-cyan-dim flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan to-cyan-dim flex items-center justify-center">
                 <span className="text-navy font-black text-sm tracking-tight">R</span>
               </div>
               <div className="absolute inset-0 rounded-lg bg-cyan/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-xl font-bold tracking-[0.15em] text-white">
-              REVOLTRIC
-            </span>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold tracking-[0.12em] text-white leading-tight">
+                Revoltric
+              </span>
+              <span className="text-[9px] text-white/30 tracking-[0.2em] uppercase font-medium -mt-0.5">
+                Solutions
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
@@ -69,7 +89,7 @@ export function Navigation() {
                     "relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActive
                       ? "text-cyan"
-                      : "text-white/60 hover:text-white"
+                      : "text-white/50 hover:text-white"
                   )}
                 >
                   {link.label}
@@ -85,23 +105,53 @@ export function Navigation() {
             })}
           </div>
 
-          {/* Desktop CTA */}
+          {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link to="/#contact">
-              <Button className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-6 py-2.5 rounded-lg text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-                Request a Quote
-              </Button>
+            <Link
+              to="/cart"
+              className="relative p-2.5 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-cyan text-navy text-[10px] font-bold flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </Link>
+            {isLoggedIn ? (
+              <Link to="/dashboard">
+                <Button variant="outline" className="border-white/10 hover:border-cyan/30 text-white/60 hover:text-white font-medium px-5 py-2.5 rounded-lg text-sm transition-all duration-300 bg-transparent">
+                  <User className="w-4 h-4 mr-2" />
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/auth">
+                <Button className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-6 py-2.5 rounded-lg text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden relative z-50 p-2 text-white/80 hover:text-white transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <Link to="/cart" className="relative p-2 text-white/40 hover:text-white transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-cyan text-navy text-[10px] font-bold flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="relative z-50 p-2 text-white/80 hover:text-white transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -145,11 +195,16 @@ export function Navigation() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mt-8"
+                className="mt-8 space-y-3"
               >
-                <Link to="/#contact" onClick={() => setMobileOpen(false)}>
+                <Link to="/auth" onClick={() => setMobileOpen(false)}>
                   <Button className="w-full bg-cyan hover:bg-cyan-dim text-navy font-semibold py-3 rounded-lg text-base">
-                    Request a Quote
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <Button variant="outline" className="w-full border-white/10 text-white/60 font-medium py-3 rounded-lg text-base bg-transparent">
+                    Dashboard
                   </Button>
                 </Link>
               </motion.div>
@@ -157,10 +212,9 @@ export function Navigation() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="mt-8 text-center text-white/30 text-sm"
+                className="mt-8 text-center text-white/20 text-xs"
               >
-                <p>© {new Date().getFullYear()} REVOLTRIC</p>
-                <p className="mt-1">Complete Hospital & Diagnostic Solutions</p>
+                <p>© {new Date().getFullYear()} Revoltric Solutions</p>
               </motion.div>
             </motion.div>
           </motion.div>

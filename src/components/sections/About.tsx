@@ -1,12 +1,12 @@
 import { SectionReveal, Stagger, AnimatedLineDivider } from "@/components/animations";
 
 const PILLARS = [
-  { label: "Complete Solutions", icon: "⬡" },
-  { label: "Quality Products", icon: "◈" },
-  { label: "Professional Support", icon: "◆" },
-  { label: "Reliable Supply", icon: "●" },
-  { label: "Hospital-Focused", icon: "◉" },
-  { label: "Long-Term Relationships", icon: "◎" },
+  { label: "Complete Catalogue", icon: "⬡" },
+  { label: "Quality Assured", icon: "◈" },
+  { label: "Expert Support", icon: "◆" },
+  { label: "Fast Delivery", icon: "●" },
+  { label: "Demo Booking", icon: "◉" },
+  { label: "Secure Checkout", icon: "◎" },
 ];
 
 export function About() {
@@ -16,21 +16,21 @@ export function About() {
         {/* Section Label */}
         <SectionReveal>
           <span className="text-cyan text-xs font-medium tracking-[0.25em] uppercase mb-6 block">
-            About Revoltric
+            About Us
           </span>
         </SectionReveal>
 
         {/* Heading */}
         <SectionReveal delay={0.1}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight max-w-5xl">
-            Healthcare Solutions, Without the Complexity.
+            One Partner for Every Healthcare Requirement.
           </h2>
         </SectionReveal>
 
         {/* Description */}
         <SectionReveal delay={0.2}>
           <p className="mt-8 text-lg sm:text-xl text-white/45 leading-relaxed max-w-3xl">
-            REVOLTRIC brings multiple hospital and diagnostic requirements together through a single professional solution partner. From radiology to pathology, from equipment to infrastructure — we simplify healthcare procurement so you can focus on what matters most: patient care.
+            Revoltric Solutions brings together radiology, pathology, hospital equipment, consumables, and infrastructure under one roof. We simplify healthcare procurement so you can focus on what matters most — delivering excellent patient care.
           </p>
         </SectionReveal>
 

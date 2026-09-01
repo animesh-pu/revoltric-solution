@@ -93,9 +93,12 @@ export function ProductShowcase() {
                   <h3 className="text-lg font-semibold text-white mt-2 mb-2 group-hover:text-gradient transition-colors duration-300">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-white/35 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-white/35 leading-relaxed line-clamp-2 mb-3">
                     {product.shortDescription}
                   </p>
+                  <span className="text-sm font-semibold text-white/60">
+                    {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(product.price)}
+                  </span>
                 </div>
               </div>
             ))}

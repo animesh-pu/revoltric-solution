@@ -12,10 +12,12 @@ export interface Product {
   shortDescription: string;
   category: string;
   categoryId: string;
+  price: number;
   features: string[];
   specifications: Record<string, string>;
   applications: string[];
   image: string;
+  inStock: boolean;
 }
 
 export interface Industry {
@@ -33,6 +35,35 @@ export interface ProjectStep {
   step: string;
   title: string;
   description: string;
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface BookingSlot {
+  id: string;
+  date: string;
+  time: string;
+  available: boolean;
+}
+
+export interface Message {
+  id: string;
+  from: string;
+  subject: string;
+  preview: string;
+  date: string;
+  read: boolean;
+}
+
+export interface Order {
+  id: string;
+  date: string;
+  items: { name: string; quantity: number; price: number }[];
+  total: number;
+  status: "pending" | "processing" | "shipped" | "delivered";
 }
 
 export const SOLUTIONS: SolutionCategory[] = [
@@ -134,6 +165,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "High-resolution digital radiography system with advanced image processing for diagnostic imaging.",
     category: "Radiology",
     categoryId: "radiology",
+    price: 2450000,
     features: [
       "High-resolution flat-panel detector",
       "Advanced image processing algorithms",
@@ -152,6 +184,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["General Radiography", "Chest Imaging", "Orthopedic Imaging", "Emergency Departments"],
     image: "",
+    inStock: true,
   },
   {
     id: "portable-ultrasound",
@@ -159,6 +192,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Compact, high-performance ultrasound with multi-probe compatibility for point-of-care diagnostics.",
     category: "Radiology",
     categoryId: "radiology",
+    price: 875000,
     features: [
       "Lightweight portable design",
       "Multi-probe compatibility",
@@ -177,6 +211,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Point-of-Care", "Emergency Medicine", "Obstetrics", "Cardiology"],
     image: "",
+    inStock: true,
   },
   {
     id: "ct-scanner-solution",
@@ -184,6 +219,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Advanced computed tomography system delivering fast, high-quality cross-sectional imaging.",
     category: "Radiology",
     categoryId: "radiology",
+    price: 12500000,
     features: [
       "High-speed spiral acquisition",
       "Low-dose protocols",
@@ -202,6 +238,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Neurology", "Oncology", "Cardiac", "Trauma", "Screening"],
     image: "",
+    inStock: true,
   },
   {
     id: "c-arm-system",
@@ -209,6 +246,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Mobile C-arm for intraoperative imaging in surgical and interventional procedures.",
     category: "Radiology",
     categoryId: "radiology",
+    price: 3200000,
     features: [
       "High-resolution image intensifier",
       "Motorized orbital movement",
@@ -227,6 +265,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Orthopedic Surgery", "Cardiology", "Pain Management", "Vascular Procedures"],
     image: "",
+    inStock: true,
   },
   {
     id: "biochemistry-analyzer",
@@ -234,13 +273,14 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Fully automated clinical chemistry analyzer for high-throughput laboratory testing.",
     category: "Pathology & Laboratory",
     categoryId: "pathology",
+    price: 1850000,
     features: [
       "Fully automated operation",
       "High throughput capacity",
       "Refrigerated reagent storage",
       "Continuous sample loading",
       "Built-in quality control",
-      " LIS connectivity",
+      "LIS connectivity",
     ],
     specifications: {
       "Throughput": "Up to 400 tests/hour",
@@ -252,6 +292,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Clinical Chemistry", "Liver Function", "Kidney Function", "Lipid Profile", "Diabetes"],
     image: "",
+    inStock: true,
   },
   {
     id: "hematology-analyzer",
@@ -259,6 +300,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Advanced 5-part differential hematology analyzer for complete blood count analysis.",
     category: "Pathology & Laboratory",
     categoryId: "pathology",
+    price: 1250000,
     features: [
       "5-part WBC differential",
       "Automated CBC analysis",
@@ -277,6 +319,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Complete Blood Count", "Hematology Labs", "Blood Banks", "Point-of-Care Testing"],
     image: "",
+    inStock: true,
   },
   {
     id: "patient-monitor",
@@ -284,6 +327,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Multi-parameter patient monitoring system for ICU, OT, and general ward environments.",
     category: "Hospital Equipment",
     categoryId: "hospital-equipment",
+    price: 185000,
     features: [
       "Multi-parameter monitoring",
       "High-resolution color display",
@@ -302,6 +346,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["ICU", "Operation Theatre", "Emergency", "General Ward", "Step-down Units"],
     image: "",
+    inStock: true,
   },
   {
     id: "ventilator",
@@ -309,6 +354,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Advanced ICU ventilator with multiple ventilation modes and intelligent patient support.",
     category: "Hospital Equipment",
     categoryId: "hospital-equipment",
+    price: 950000,
     features: [
       "Multiple ventilation modes",
       "Intelligent triggering",
@@ -327,6 +373,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["ICU", "Emergency Medicine", "Anesthesia", "Neonatal Care", "Transport"],
     image: "",
+    inStock: true,
   },
   {
     id: "infusion-pump",
@@ -334,6 +381,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Precision volumetric infusion pump with drug library and safety alarm system.",
     category: "Hospital Equipment",
     categoryId: "hospital-equipment",
+    price: 45000,
     features: [
       "Volumetric precision delivery",
       "Comprehensive drug library",
@@ -352,6 +400,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["ICU", "General Ward", "Oncology", "Pediatrics", "Emergency"],
     image: "",
+    inStock: true,
   },
   {
     id: "centrifuge",
@@ -359,6 +408,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "High-speed refrigerated centrifuge for clinical and research laboratory applications.",
     category: "Pathology & Laboratory",
     categoryId: "pathology",
+    price: 285000,
     features: [
       "Refrigerated operation",
       "Programmable protocols",
@@ -377,6 +427,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Clinical Chemistry", "Blood Separation", "Urine Analysis", "Research"],
     image: "",
+    inStock: true,
   },
   {
     id: "ecg-machine",
@@ -384,6 +435,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Compact 12-lead electrocardiograph with auto-interpretation and thermal printing.",
     category: "Hospital Equipment",
     categoryId: "hospital-equipment",
+    price: 65000,
     features: [
       "12-lead simultaneous acquisition",
       "Auto-interpretation algorithm",
@@ -402,6 +454,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Cardiology", "Emergency", "General Screening", "Pre-operative", "Sports Medicine"],
     image: "",
+    inStock: true,
   },
   {
     id: "microscope",
@@ -409,6 +462,7 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Research-grade digital microscope with camera integration for pathology and diagnostics.",
     category: "Pathology & Laboratory",
     categoryId: "pathology",
+    price: 175000,
     features: [
       "Trinocular head with camera port",
       "LED Köhler illumination",
@@ -427,6 +481,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Pathology", "Histology", "Hematology", "Microbiology", "Research"],
     image: "",
+    inStock: true,
   },
 ];
 
@@ -449,27 +504,27 @@ export const ADVANTAGES: Advantage[] = [
   },
   {
     title: "Quality Focused",
-    description: "Products and solutions selected with professional healthcare requirements in mind.",
+    description: "Every product is selected with professional healthcare requirements in mind — no shortcuts, no compromises.",
     icon: "shield-check",
   },
   {
     title: "Reliable Support",
-    description: "Responsive assistance throughout the purchasing and implementation journey.",
+    description: "Responsive assistance from initial enquiry through installation, training, and ongoing maintenance.",
     icon: "headphones",
   },
   {
     title: "Technical Understanding",
-    description: "Solutions designed around real hospital and diagnostic workflows.",
+    description: "Solutions designed around real hospital and diagnostic workflows, not generic equipment catalogues.",
     icon: "cpu",
   },
   {
     title: "Professional Service",
-    description: "A streamlined experience from enquiry to delivery and support.",
+    description: "A streamlined procurement experience from first contact to delivery, installation, and beyond.",
     icon: "briefcase",
   },
   {
     title: "Long-Term Partnership",
-    description: "Built to support healthcare facilities beyond a single purchase.",
+    description: "We build lasting relationships — supporting healthcare facilities well beyond the initial purchase.",
     icon: "handshake",
   },
 ];
@@ -478,32 +533,32 @@ export const PROJECT_STEPS: ProjectStep[] = [
   {
     step: "01",
     title: "Requirement",
-    description: "We identify your facility's specific needs and challenges.",
+    description: "We begin by understanding your facility's specific needs, challenges, and operational goals.",
   },
   {
     step: "02",
     title: "Consultation",
-    description: "Our experts provide tailored recommendations and planning.",
+    description: "Our specialists provide tailored recommendations, technical guidance, and project planning.",
   },
   {
     step: "03",
     title: "Product Selection",
-    description: "Curated product matching with quality-assured solutions.",
+    description: "Curated product matching ensures every solution is quality-assured and fit for purpose.",
   },
   {
     step: "04",
     title: "Supply",
-    description: "Reliable procurement and timely delivery of all solutions.",
+    description: "Reliable procurement, careful logistics, and timely delivery of every item.",
   },
   {
     step: "05",
     title: "Installation",
-    description: "Professional setup and commissioning by trained engineers.",
+    description: "Professional setup and commissioning carried out by trained engineers on-site.",
   },
   {
     step: "06",
     title: "Support",
-    description: "Ongoing maintenance, training, and technical assistance.",
+    description: "Ongoing maintenance, training, spare parts, and technical assistance whenever you need it.",
   },
 ];
 
@@ -521,6 +576,65 @@ export const NAV_LINKS = [
   { label: "Solutions", href: "/#solutions" },
   { label: "Products", href: "/products" },
   { label: "Industries", href: "/#industries" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Schedule", href: "/schedule" },
   { label: "Contact", href: "/#contact" },
+];
+
+export const SAMPLE_ORDERS: Order[] = [
+  {
+    id: "ORD-2024-001",
+    date: "2024-12-15",
+    items: [
+      { name: "Patient Monitor System", quantity: 5, price: 185000 },
+      { name: "Infusion Pump", quantity: 10, price: 45000 },
+    ],
+    total: 1375000,
+    status: "delivered",
+  },
+  {
+    id: "ORD-2024-002",
+    date: "2025-01-22",
+    items: [
+      { name: "Biochemistry Analyzer", quantity: 1, price: 1850000 },
+      { name: "Laboratory Centrifuge", quantity: 2, price: 285000 },
+    ],
+    total: 2420000,
+    status: "shipped",
+  },
+  {
+    id: "ORD-2025-003",
+    date: "2025-03-10",
+    items: [
+      { name: "12-Lead ECG Machine", quantity: 3, price: 65000 },
+    ],
+    total: 195000,
+    status: "processing",
+  },
+];
+
+export const SAMPLE_MESSAGES: Message[] = [
+  {
+    id: "msg-1",
+    from: "Revoltric Solutions",
+    subject: "Your order ORD-2024-002 has been shipped",
+    preview: "Your Biochemistry Analyzer and Laboratory Centrifuges are on their way. Tracking details have been sent to your registered email.",
+    date: "2025-03-28",
+    read: false,
+  },
+  {
+    id: "msg-2",
+    from: "Revoltric Solutions",
+    subject: "Installation scheduled for Patient Monitor systems",
+    preview: "Our engineering team will arrive on April 5th to install and commission the 5 Patient Monitor systems at your facility.",
+    date: "2025-03-25",
+    read: true,
+  },
+  {
+    id: "msg-3",
+    from: "Revoltric Solutions",
+    subject: "New products added to the Radiology category",
+    preview: "We've added new portable ultrasound systems and C-arm solutions to our catalogue. Take a look.",
+    date: "2025-03-20",
+    read: true,
+  },
 ];

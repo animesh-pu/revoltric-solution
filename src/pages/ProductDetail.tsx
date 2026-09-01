@@ -5,15 +5,28 @@ import {
   ArrowLeft,
   Check,
   Download,
-  Send,
+  ShoppingCart,
   Tag,
   FileText,
+  Calendar,
 } from "lucide-react";
 import { PRODUCTS } from "@/data/content";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { SectionReveal, AnimatedLineDivider } from "@/components/animations";
+
+function formatPrice(price: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+
+function cn(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -24,10 +37,10 @@ export default function ProductDetail() {
       <div className="min-h-screen bg-navy flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-4">Product Not Found</h1>
-          <p className="text-white/40 mb-8">The product you're looking for doesn't exist.</p>
+          <p className="text-white/40 mb-8">The product you're looking for doesn't exist in our catalogue.</p>
           <Link to="/products">
             <Button className="bg-cyan text-navy font-semibold px-6 py-2.5 rounded-lg">
-              View All Products
+              Browse Products
             </Button>
           </Link>
         </div>
@@ -66,6 +79,13 @@ export default function ProductDetail() {
                   {product.category}
                 </span>
               </div>
+              {product.inStock && (
+                <div className="absolute top-6 right-6">
+                  <span className="px-3 py-1.5 rounded-lg bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20">
+                    In Stock
+                  </span>
+                </div>
+              )}
             </div>
           </SectionReveal>
 
@@ -75,24 +95,42 @@ export default function ProductDetail() {
               <span className="text-cyan text-xs font-medium tracking-[0.2em] uppercase mb-4">
                 {product.category}
               </span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-4">
                 {product.name}
               </h1>
+
+              {/* Price */}
+              <div className="mb-6">
+                <span className="text-3xl font-bold text-gradient">{formatPrice(product.price)}</span>
+                <span className="text-xs text-white/25 ml-2">excl. taxes · shipping calculated at checkout</span>
+              </div>
+
               <p className="text-lg text-white/45 leading-relaxed mb-8">
                 {product.shortDescription}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <Button className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-                  Request a Quote
-                  <Send className="w-4 h-4 ml-2" />
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-3 mb-10">
+                <Link to="/cart">
+                  <Button className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Add to Cart
+                  </Button>
+                </Link>
+                <Link to="/schedule">
+                  <Button
+                    variant="outline"
+                    className="border-white/10 hover:border-cyan/30 text-white/60 hover:text-white font-medium px-8 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
+                  >
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Book a Demo
+                  </Button>
+                </Link>
                 <Button
                   variant="outline"
-                  className="border-white/10 hover:border-cyan/30 text-white/60 hover:text-white font-medium px-8 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
+                  className="border-white/10 hover:border-cyan/30 text-white/40 hover:text-white font-medium px-6 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Download Brochure
+                  Brochure
                 </Button>
               </div>
 
@@ -194,6 +232,7 @@ export default function ProductDetail() {
                     <h3 className="text-base font-semibold text-white mt-1 group-hover:text-cyan transition-colors">
                       {relatedProduct.name}
                     </h3>
+                    <p className="text-sm text-white/40 mt-1">{formatPrice(relatedProduct.price)}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -204,8 +243,4 @@ export default function ProductDetail() {
       <Footer />
     </div>
   );
-}
-
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
 }

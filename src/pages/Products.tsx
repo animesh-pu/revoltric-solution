@@ -140,23 +140,17 @@ export default function Products() {
                   <h3 className="text-lg font-semibold text-white mt-2 mb-2 group-hover:text-cyan transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-white/35 leading-relaxed line-clamp-2 mb-4">
+                  <p className="text-sm text-white/35 leading-relaxed line-clamp-2 mb-3">
                     {product.shortDescription}
                   </p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-bold text-white/80">
+                      {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(product.price)}
+                    </span>
                     <span className="inline-flex items-center gap-1.5 text-xs text-cyan/70 font-medium">
-                      View Details
+                      Details
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </span>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                      }}
-                      className="inline-flex items-center gap-1.5 text-xs text-white/30 hover:text-cyan/70 font-medium transition-colors"
-                    >
-                      Request Quote
-                    </button>
                   </div>
                 </div>
               </Link>

@@ -34,7 +34,7 @@ export function Contact() {
         </SectionReveal>
         <SectionReveal delay={0.1}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight max-w-4xl">
-            Start Your <span className="text-gradient">Project Today.</span>
+            Get in <span className="text-gradient">Touch.</span>
           </h2>
         </SectionReveal>
 
@@ -181,7 +181,7 @@ export function Contact() {
                     <div>
                       <p className="text-xs text-white/30 mb-1">Office Address</p>
                       <p className="text-sm text-white/70">
-                        REVOLTRIC Office<br />
+                        Revoltric Solutions Office<br />
                         [Address Placeholder]<br />
                         India
                       </p>
