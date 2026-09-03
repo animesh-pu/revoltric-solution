@@ -239,7 +239,7 @@ export default function Schedule() {
                     <div className="space-y-2">
                       <Label htmlFor="s-phone" className="text-sm text-white/50">Phone *</Label>
                       <Input id="s-phone" type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl" placeholder="+91 00000 00000" />
+                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"                    placeholder="+91 79780 36219" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="s-company" className="text-sm text-white/50">Company / Hospital</Label>

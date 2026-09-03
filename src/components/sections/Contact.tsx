@@ -84,7 +84,7 @@ export function Contact() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 focus:ring-cyan/20 h-12 rounded-xl"
-                    placeholder="+91 00000 00000"
+                    placeholder="+91 79780 36219"
                   />
                 </div>
                 <div className="space-y-2">
@@ -157,9 +157,8 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="text-xs text-white/30 mb-1">Phone</p>
-                      {/* Placeholder */}
-                      <a href="tel:+910000000000" className="text-sm text-white/70 hover:text-cyan transition-colors">
-                        +91 00000 00000
+                      <a href="tel:+917978036219" className="text-sm text-white/70 hover:text-cyan transition-colors">
+                        +91 79780 36219
                       </a>
                     </div>
                   </div>
@@ -169,8 +168,8 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="text-xs text-white/30 mb-1">Email</p>
-                      <a href="mailto:info@revoltric.com" className="text-sm text-white/70 hover:text-cyan transition-colors">
-                        info@revoltric.com
+                      <a href="mailto:revoltricsolutions@gmail.com" className="text-sm text-white/70 hover:text-cyan transition-colors">
+                        revoltricsolutions@gmail.com
                       </a>
                     </div>
                   </div>
@@ -181,9 +180,9 @@ export function Contact() {
                     <div>
                       <p className="text-xs text-white/30 mb-1">Office Address</p>
                       <p className="text-sm text-white/70">
-                        Revoltric Solutions Office<br />
-                        [Address Placeholder]<br />
-                        India
+                        Sector 3, 6B, Naccri Vihar,<br />
+                        Bhubaneswar — 751021<br />
+                        Odisha, India
                       </p>
                     </div>
                   </div>
@@ -193,7 +192,7 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="text-xs text-white/30 mb-1">WhatsApp</p>
-                      <a href="#" className="text-sm text-white/70 hover:text-cyan transition-colors">
+                      <a href="https://wa.me/917978036219" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-cyan transition-colors">
                         Chat on WhatsApp
                       </a>
                     </div>

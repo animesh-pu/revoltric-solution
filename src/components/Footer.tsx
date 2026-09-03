@@ -88,15 +88,15 @@ export function Footer() {
               <ul className="space-y-4">
                 <li className="text-sm text-white/35">
                   <span className="text-white/50 font-medium block mb-1">Phone</span>
-                  <a href="tel:+910000000000" className="hover:text-cyan transition-colors">+91 00000 00000</a>
+                  <a href="tel:+917978036219" className="hover:text-cyan transition-colors">+91 79780 36219</a>
                 </li>
                 <li className="text-sm text-white/35">
                   <span className="text-white/50 font-medium block mb-1">Email</span>
-                  <a href="mailto:info@revoltric.com" className="hover:text-cyan transition-colors">info@revoltric.com</a>
+                  <a href="mailto:revoltricsolutions@gmail.com" className="hover:text-cyan transition-colors">revoltricsolutions@gmail.com</a>
                 </li>
                 <li className="text-sm text-white/35">
                   <span className="text-white/50 font-medium block mb-1">Office</span>
-                  <span>Revoltric Solutions,<br />[Address Placeholder], India</span>
+                  <span>Sector 3, 6B, Naccri Vihar,<br />Bhubaneswar — 751021, India</span>
                 </li>
               </ul>
             </div>

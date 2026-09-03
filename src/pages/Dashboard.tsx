@@ -320,7 +320,7 @@ export default function Dashboard() {
                       { label: "Name", value: user?.name || "[Your Name]" },
                       { label: "Email", value: user?.email || "user@email.com" },
                       { label: "Company", value: "[Company Name]" },
-                      { label: "Phone", value: "+91 00000 00000" },
+                      { label: "Phone", value: "+91 79780 36219" },
                     ].map((field) => (
                       <div key={field.label}>
                         <p className="text-xs text-white/30 mb-1">{field.label}</p>
