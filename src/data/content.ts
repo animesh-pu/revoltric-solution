@@ -68,7 +68,7 @@ export interface Order {
 
 // Hero backdrop: modern digital radiography suite (representative stock photo).
 export const HERO_BACKGROUND_IMAGE =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1280px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg";
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1920px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg";
 
 // Product photos below are representative, license-compatible stock images of the
 // corresponding equipment type (Wikimedia Commons / Flickr CC). Swap with
@@ -191,7 +191,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["General Radiography", "Chest Imaging", "Orthopedic Imaging", "Emergency Departments"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1280px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1920px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg",
     inStock: true,
   },
   {
@@ -247,7 +247,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Neurology", "Oncology", "Cardiac", "Trauma", "Screening"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/AS%26E_CT_Scanner.jpg/1280px-AS%26E_CT_Scanner.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/CT-Scanner16SliceSystem.jpg/1920px-CT-Scanner16SliceSystem.jpg",
     inStock: true,
   },
   {
@@ -275,7 +275,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Orthopedic Surgery", "Cardiology", "Pain Management", "Vascular Procedures"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mobile_X-ray_machine.jpg/1280px-Mobile_X-ray_machine.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/JH_NEURO3_038.jpg/1920px-JH_NEURO3_038.jpg",
     inStock: true,
   },
   {
@@ -303,7 +303,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Clinical Chemistry", "Liver Function", "Kidney Function", "Lipid Profile", "Diabetes"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Hit917.jpg/1280px-Hit917.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_3.jpg/1920px-Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_3.jpg",
     inStock: true,
   },
   {
@@ -331,7 +331,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Complete Blood Count", "Hematology Labs", "Blood Banks", "Point-of-Care Testing"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Sysmex_XT-4000i.jpg/1280px-Sysmex_XT-4000i.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Sysmex_XT-4000i.jpg/1600px-Sysmex_XT-4000i.jpg",
     inStock: true,
   },
   {
@@ -359,7 +359,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["ICU", "Operation Theatre", "Emergency", "General Ward", "Step-down Units"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hospital_Patient_Monitor_%2817239884329%29.jpg/1280px-Hospital_Patient_Monitor_%2817239884329%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hospital_Patient_Monitor_%2817239884329%29.jpg/1600px-Hospital_Patient_Monitor_%2817239884329%29.jpg",
     inStock: true,
   },
   {
@@ -415,7 +415,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["ICU", "General Ward", "Oncology", "Pediatrics", "Emergency"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Syringe_infusion_pump.jpg/1280px-Syringe_infusion_pump.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Syringe_infusion_pump.jpg/1920px-Syringe_infusion_pump.jpg",
     inStock: true,
   },
   {
@@ -499,7 +499,7 @@ export const PRODUCTS: Product[] = [
     },
     applications: ["Pathology", "Histology", "Hematology", "Microbiology", "Research"],
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bresser_binocular_microscope_and_a_Stereo_microscope.jpg/1280px-Bresser_binocular_microscope_and_a_Stereo_microscope.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Pathology_department_at_the_central_cancer_research_laboratories.jpg/1920px-Pathology_department_at_the_central_cancer_research_laboratories.jpg",
     inStock: true,
   },
 ];

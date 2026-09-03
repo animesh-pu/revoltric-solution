@@ -9,6 +9,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
 
+import logo from "@/assets/logo.svg";
+
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
@@ -26,9 +28,13 @@ function RouteLoading() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-navy">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan to-cyan-dim flex items-center justify-center animate-pulse">
-          <span className="text-navy font-black text-sm">R</span>
-        </div>
+        <img
+          src={logo}
+          alt="Revoltric Solutions"
+          width={40}
+          height={40}
+          className="animate-pulse rounded-lg"
+        />
         <span className="text-sm text-white/30">Loading...</span>
       </div>
     </div>
