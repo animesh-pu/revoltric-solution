@@ -1,14 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
+import { toast } from "sonner";
+import { addToCart } from "@/lib/cart";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Check,
-  Download,
   ShoppingCart,
   Tag,
   FileText,
   Calendar,
+  MessageSquare,
 } from "lucide-react";
 import { PRODUCTS } from "@/data/content";
 import { Navigation } from "@/components/Navigation";
@@ -30,6 +32,7 @@ function cn(...classes: (string | boolean | undefined)[]) {
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
+  const [added, setAdded] = useState(false);
   const product = useMemo(() => PRODUCTS.find((p) => p.id === id), [id]);
 
   if (!product) {
@@ -122,10 +125,33 @@ export default function ProductDetail() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-10">
+                <Button
+                  onClick={() => {
+                    addToCart(product);
+                    setAdded(true);
+                    toast.success(`${product.name} added to cart`);
+                    setTimeout(() => setAdded(false), 2000);
+                  }}
+                  className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]"
+                >
+                  {added ? (
+                    <>
+                      <Check className="w-4 h-4 mr-2" />
+                      Added to Cart
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
                 <Link to="/cart">
-                  <Button className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart
+                  <Button
+                    variant="outline"
+                    className="border-white/10 hover:border-cyan/30 text-white/60 hover:text-white font-medium px-6 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
+                  >
+                    View Cart
                   </Button>
                 </Link>
                 <Link to="/schedule">
@@ -137,13 +163,15 @@ export default function ProductDetail() {
                     Book a Demo
                   </Button>
                 </Link>
-                <Button
-                  variant="outline"
-                  className="border-white/10 hover:border-cyan/30 text-white/40 hover:text-white font-medium px-6 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Brochure
-                </Button>
+                <Link to={`/?product=${encodeURIComponent(product.name)}#contact`}>
+                  <Button
+                    variant="outline"
+                    className="border-white/10 hover:border-cyan/30 text-white/40 hover:text-white font-medium px-6 py-3.5 rounded-lg transition-all duration-300 bg-transparent"
+                  >
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Request Quote
+                  </Button>
+                </Link>
               </div>
 
               {/* Applications Tags */}

@@ -29,20 +29,23 @@ export function CtaSection() {
 
         <SectionReveal delay={0.3}>
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/#contact">
+            <Link to="/products">
               <Button className="group bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3.5 rounded-lg text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)]">
                 Browse Products
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <a href="tel:+917978036219">
+            <Link to="/schedule">
               <Button
                 variant="outline"
                 className="border-white/10 hover:border-cyan/30 text-white/70 hover:text-white font-medium px-8 py-3.5 rounded-lg text-base transition-all duration-300 bg-transparent hover:bg-white/[0.03]"
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
-                Book a Demo
+                Schedule a Demo
               </Button>
+            </Link>
+            <a href="tel:+917978036219" className="text-sm text-white/30 hover:text-cyan transition-colors">
+              or call +91 79780 36219
             </a>
           </div>
         </SectionReveal>

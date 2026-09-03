@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router";
 import { motion } from "framer-motion";
 import { Search, X, ArrowRight, FileText } from "lucide-react";
 import { PRODUCTS, SOLUTIONS } from "@/data/content";
@@ -10,7 +10,16 @@ import { cn } from "@/lib/utils";
 
 export default function Products() {
   const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  // Honour ?category= links coming from the landing-page solutions section.
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category && SOLUTIONS.some((s) => s.id === category)) {
+      setActiveCategory(category);
+    }
+  }, [searchParams]);
 
   const categories = useMemo(
     () => [

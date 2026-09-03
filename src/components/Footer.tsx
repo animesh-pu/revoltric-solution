@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import { NAV_LINKS } from "@/data/content";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.svg";
+import { NAV_LINKS, SOLUTIONS } from "@/data/content";
 import { SectionReveal } from "@/components/animations";
 
 export function Footer() {
@@ -13,30 +15,53 @@ export function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <SectionReveal>
-            <div className="lg:col-span-1">
-              <Link to="/" className="inline-flex items-center gap-2.5 mb-6">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan to-cyan-dim flex items-center justify-center">
-                  <span className="text-navy font-black text-sm">R</span>
-                </div>
+            <div>
+              <Link to="/" className="inline-flex items-center gap-2.5 mb-6 group">
+                <img
+                  src={logo}
+                  alt="Revoltric Solutions"
+                  width={42}
+                  height={42}
+                  className="rounded-xl transition-transform duration-300 group-hover:scale-105"
+                />
                 <div className="flex flex-col">
-                  <span className="text-lg font-bold tracking-[0.12em] text-white leading-tight">Revoltric</span>
-                  <span className="text-[9px] text-white/30 tracking-[0.2em] uppercase font-medium -mt-0.5">Solutions</span>
+                  <span className="text-lg font-bold tracking-[0.1em] text-white leading-tight">
+                    Revoltric
+                  </span>
+                  <span className="text-[8px] text-cyan/70 tracking-[0.22em] uppercase font-semibold -mt-0.5">
+                    Healthcare Solutions
+                  </span>
                 </div>
               </Link>
               <p className="text-white/35 text-sm leading-relaxed max-w-xs">
-                Complete hospital and diagnostic solutions. Professional-grade medical equipment, laboratory systems, and healthcare infrastructure — all from one trusted partner.
+                Trusted diagnostic experts — precision diagnostic equipment and
+                dependable service for hospitals, labs, and clinics. One
+                professional partner for complete healthcare solutions.
               </p>
-              <div className="flex gap-3 mt-6">
-                {["LinkedIn", "Twitter", "Facebook"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    aria-label={social}
-                    className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35 hover:text-cyan hover:bg-white/10 transition-all duration-300"
-                  >
-                    <span className="text-xs font-medium">{social[0]}</span>
-                  </a>
-                ))}
+              <div className="flex flex-wrap gap-2.5 mt-6">
+                <a
+                  href="https://wa.me/917978036219"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat on WhatsApp"
+                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35 hover:text-cyan hover:bg-white/10 transition-all duration-300"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+                <a
+                  href="tel:+917978036219"
+                  aria-label="Call Revoltric Solutions"
+                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35 hover:text-cyan hover:bg-white/10 transition-all duration-300"
+                >
+                  <Phone className="w-4 h-4" />
+                </a>
+                <a
+                  href="mailto:revoltricsolutions@gmail.com"
+                  aria-label="Email Revoltric Solutions"
+                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35 hover:text-cyan hover:bg-white/10 transition-all duration-300"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </SectionReveal>
@@ -44,7 +69,9 @@ export function Footer() {
           {/* Quick Links */}
           <SectionReveal delay={0.1}>
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">Quick Links</h4>
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">
+                Quick Links
+              </h4>
               <ul className="space-y-3">
                 {NAV_LINKS.map((link) => (
                   <li key={link.href}>
@@ -63,20 +90,22 @@ export function Footer() {
           {/* Solutions */}
           <SectionReveal delay={0.2}>
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">Solutions</h4>
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">
+                Solutions
+              </h4>
               <ul className="space-y-3">
-                {["Radiology", "Pathology & Laboratory", "Hospital Equipment", "Consumables", "Infrastructure"].map(
-                  (solution) => (
-                    <li key={solution}>
+                {SOLUTIONS.filter((s) => s.id !== "other")
+                  .slice(0, 5)
+                  .map((solution) => (
+                    <li key={solution.id}>
                       <Link
-                        to="/#solutions"
+                        to={`/products?category=${solution.id}`}
                         className="text-sm text-white/35 hover:text-cyan transition-colors duration-300"
                       >
-                        {solution}
+                        {solution.title}
                       </Link>
                     </li>
-                  )
-                )}
+                  ))}
               </ul>
             </div>
           </SectionReveal>
@@ -84,19 +113,29 @@ export function Footer() {
           {/* Contact */}
           <SectionReveal delay={0.3}>
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">Contact</h4>
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">
+                Contact
+              </h4>
               <ul className="space-y-4">
-                <li className="text-sm text-white/35">
-                  <span className="text-white/50 font-medium block mb-1">Phone</span>
-                  <a href="tel:+917978036219" className="hover:text-cyan transition-colors">+91 79780 36219</a>
+                <li className="flex items-start gap-3">
+                  <Phone className="w-4 h-4 text-cyan/60 mt-0.5 shrink-0" />
+                  <a href="tel:+917978036219" className="text-sm text-white/35 hover:text-cyan transition-colors">
+                    +91 79780 36219
+                  </a>
                 </li>
-                <li className="text-sm text-white/35">
-                  <span className="text-white/50 font-medium block mb-1">Email</span>
-                  <a href="mailto:revoltricsolutions@gmail.com" className="hover:text-cyan transition-colors">revoltricsolutions@gmail.com</a>
+                <li className="flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-cyan/60 mt-0.5 shrink-0" />
+                  <a href="mailto:revoltricsolutions@gmail.com" className="text-sm text-white/35 hover:text-cyan transition-colors break-all">
+                    revoltricsolutions@gmail.com
+                  </a>
                 </li>
-                <li className="text-sm text-white/35">
-                  <span className="text-white/50 font-medium block mb-1">Office</span>
-                  <span>Sector 3, 6B, Niladri Vihar,<br />Bhubaneswar — 751021, India</span>
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-cyan/60 mt-0.5 shrink-0" />
+                  <span className="text-sm text-white/35">
+                    Sector 3, 6B, Niladri Vihar,
+                    <br />
+                    Bhubaneswar — 751021, Odisha
+                  </span>
                 </li>
               </ul>
             </div>
@@ -104,18 +143,13 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25">
             © {currentYear} Revoltric Solutions. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-xs text-white/25 hover:text-white/50 transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-xs text-white/25 hover:text-white/50 transition-colors">
-              Terms & Conditions
-            </a>
-          </div>
+          <p className="text-xs text-white/20">
+            Complete Hospital &amp; Diagnostic Solutions
+          </p>
         </div>
       </div>
     </footer>

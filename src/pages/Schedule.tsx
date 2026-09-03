@@ -1,7 +1,19 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Calendar, Clock, Check, ChevronLeft, ChevronRight, Video, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Check,
+  Video,
+  MapPin,
+  Loader2,
+  Phone,
+} from "lucide-react";
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { toast } from "sonner";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionReveal, AnimatedLineDivider } from "@/components/animations";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 const TIME_SLOTS = [
@@ -18,12 +31,26 @@ const TIME_SLOTS = [
   "04:00 PM", "04:30 PM", "05:00 PM",
 ];
 
+/** Deterministic availability so the grid does not shuffle between renders. */
+function slotAvailable(dateLabel: string, time: string): boolean {
+  let hash = 0;
+  const input = `${dateLabel}|${time}`;
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash << 5) - hash + input.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash) % 100 >= 22;
+}
+
 type BookingType = "video" | "phone" | "visit";
 
 export default function Schedule() {
+  const { user, isLoading: authLoading } = useAuth();
+  const createBooking = useMutation(api.crm.createBooking);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [bookingType, setBookingType] = useState<BookingType>("video");
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -34,15 +61,18 @@ export default function Schedule() {
     message: "",
   });
 
-  // Generate next 14 days
+  const set = (field: keyof typeof formData) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+
+  // Next 14 days
   const dates = useMemo(() => {
-    const result: { date: Date; label: string; day: string; dayNum: string; month: string }[] = [];
+    const result: { label: string; day: string; dayNum: string; month: string }[] = [];
     const today = new Date();
     for (let i = 1; i <= 14; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() + i);
       result.push({
-        date: d,
         label: d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" }),
         day: d.toLocaleDateString("en-US", { weekday: "short" }),
         dayNum: d.getDate().toString(),
@@ -52,14 +82,40 @@ export default function Schedule() {
     return result;
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!selectedDate || !selectedTime) return;
+    setSubmitting(true);
+    try {
+      await createBooking({
+        type: bookingType,
+        dateLabel: selectedDate,
+        time: selectedTime,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company || undefined,
+        topic: formData.topic || undefined,
+        message: formData.message || undefined,
+        userId: user?._id,
+      });
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      console.error("Booking failed:", error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not book this slot. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const bookingTypes: { key: BookingType; label: string; icon: React.ReactNode; desc: string }[] = [
     { key: "video", label: "Video Call", icon: <Video className="w-5 h-5" />, desc: "Meet online via Zoom or Google Meet" },
-    { key: "phone", label: "Phone Call", icon: <Clock className="w-5 h-5" />, desc: "We'll call you at the scheduled time" },
+    { key: "phone", label: "Phone Call", icon: <Phone className="w-5 h-5" />, desc: "We'll call you at the scheduled time" },
     { key: "visit", label: "On-Site Visit", icon: <MapPin className="w-5 h-5" />, desc: "Our team visits your facility" },
   ];
 
@@ -76,22 +132,37 @@ export default function Schedule() {
             <div className="w-20 h-20 rounded-full bg-cyan/15 flex items-center justify-center mx-auto mb-8">
               <Check className="w-10 h-10 text-cyan" />
             </div>
-            <h2 className="text-3xl font-bold text-white mb-4">Demo Booked</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Request Received</h2>
             <p className="text-white/40 mb-2">
-              Your {bookingType === "video" ? "video call" : bookingType === "phone" ? "phone call" : "on-site visit"} is scheduled for{" "}
-              <span className="text-cyan">{selectedDate}</span> at <span className="text-cyan">{selectedTime}</span>.
+              Your{" "}
+              {bookingType === "video"
+                ? "video call"
+                : bookingType === "phone"
+                  ? "phone call"
+                  : "on-site visit"}{" "}
+              is requested for{" "}
+              <span className="text-cyan">{selectedDate}</span> at{" "}
+              <span className="text-cyan">{selectedTime}</span>.
             </p>
-            <p className="text-white/30 text-sm mb-8">
-              You'll receive a confirmation email with all the details shortly. Our team will reach out if anything needs to be adjusted.
+            <p className="text-white/30 text-sm mb-8 leading-relaxed">
+              Our team will confirm the slot by email or phone shortly.{" "}
+              {user
+                ? "You can also review this request anytime from your dashboard."
+                : "You'll receive the confirmation at the email address you provided."}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to="/dashboard">
-                <Button className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-6 py-2.5 rounded-lg">
-                  Go to Dashboard
-                </Button>
-              </Link>
+              {user && (
+                <Link to="/dashboard">
+                  <Button className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-6 py-2.5 rounded-lg">
+                    Go to Dashboard
+                  </Button>
+                </Link>
+              )}
               <Link to="/products">
-                <Button variant="outline" className="border-white/10 text-white/50 hover:text-white px-6 py-2.5 rounded-lg bg-transparent">
+                <Button
+                  variant="outline"
+                  className="border-white/10 text-white/50 hover:text-white px-6 py-2.5 rounded-lg bg-transparent"
+                >
                   Browse Products
                 </Button>
               </Link>
@@ -119,7 +190,9 @@ export default function Schedule() {
           </SectionReveal>
           <SectionReveal delay={0.1}>
             <p className="mt-3 text-white/40 max-w-2xl">
-              Book a consultation or product demonstration with our specialists. We'll walk you through features, specifications, and configurations tailored to your facility.
+              Book a consultation or product demonstration with our specialists.
+              We'll walk you through features, specifications, and configurations
+              tailored to your facility.
             </p>
           </SectionReveal>
         </div>
@@ -133,7 +206,9 @@ export default function Schedule() {
             {/* Booking Type */}
             <SectionReveal>
               <div>
-                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Meeting Type</h3>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                  Meeting Type
+                </h3>
                 <div className="grid grid-cols-3 gap-3">
                   {bookingTypes.map((bt) => (
                     <button
@@ -143,7 +218,7 @@ export default function Schedule() {
                         "flex flex-col items-center gap-2 p-5 rounded-xl border text-center transition-all duration-300",
                         bookingType === bt.key
                           ? "border-cyan/40 bg-cyan/[0.06] text-cyan"
-                          : "border-white/5 bg-white/[0.02] text-white/35 hover:border-white/15"
+                          : "border-white/5 bg-white/[0.02] text-white/35 hover:border-white/15",
                       )}
                     >
                       {bt.icon}
@@ -158,17 +233,22 @@ export default function Schedule() {
             {/* Date Picker */}
             <SectionReveal delay={0.1}>
               <div>
-                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Select Date</h3>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                  Select Date
+                </h3>
                 <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                   {dates.map((d) => (
                     <button
                       key={d.label}
-                      onClick={() => setSelectedDate(d.label)}
+                      onClick={() => {
+                        setSelectedDate(d.label);
+                        setSelectedTime(null);
+                      }}
                       className={cn(
                         "flex flex-col items-center min-w-[72px] p-3 rounded-xl border transition-all duration-300 shrink-0",
                         selectedDate === d.label
                           ? "border-cyan/40 bg-cyan/[0.06] text-cyan"
-                          : "border-white/5 bg-white/[0.02] text-white/35 hover:border-white/15"
+                          : "border-white/5 bg-white/[0.02] text-white/35 hover:border-white/15",
                       )}
                     >
                       <span className="text-[10px] uppercase tracking-wider">{d.day}</span>
@@ -187,11 +267,12 @@ export default function Schedule() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Available Times</h3>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                  Available Times
+                </h3>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {TIME_SLOTS.map((time) => {
-                    // Random availability for demo
-                    const isAvailable = Math.random() > 0.25;
+                    const isAvailable = slotAvailable(selectedDate, time);
                     return (
                       <button
                         key={time}
@@ -202,8 +283,8 @@ export default function Schedule() {
                           !isAvailable
                             ? "text-white/10 bg-white/[0.01] cursor-not-allowed line-through"
                             : selectedTime === time
-                            ? "bg-cyan/15 text-cyan border border-cyan/30"
-                            : "text-white/40 border border-white/5 hover:border-white/15 hover:text-white/60"
+                              ? "bg-cyan/15 text-cyan border border-cyan/30"
+                              : "text-white/40 border border-white/5 hover:border-white/15 hover:text-white/60",
                         )}
                       >
                         {time}
@@ -221,48 +302,70 @@ export default function Schedule() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Your Details</h3>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                  Your Details
+                </h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="s-name" className="text-sm text-white/50">Name *</Label>
-                      <Input id="s-name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl" placeholder="Your full name" />
+                      <Input id="s-name" required value={formData.name} onChange={set("name")}
+                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"
+                        placeholder="Your full name" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="s-email" className="text-sm text-white/50">Email *</Label>
-                      <Input id="s-email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl" placeholder="you@email.com" />
+                      <Input id="s-email" type="email" required value={formData.email} onChange={set("email")}
+                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"
+                        placeholder="you@email.com" />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="s-phone" className="text-sm text-white/50">Phone *</Label>
-                      <Input id="s-phone" type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"                    placeholder="+91 79780 36219" />
+                      <Input id="s-phone" type="tel" required value={formData.phone} onChange={set("phone")}
+                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"
+                        placeholder="+91 79780 36219" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="s-company" className="text-sm text-white/50">Company / Hospital</Label>
-                      <Input id="s-company" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl" placeholder="Organization name" />
+                      <Input id="s-company" value={formData.company} onChange={set("company")}
+                        className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"
+                        placeholder="Organization name" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="s-topic" className="text-sm text-white/50">What would you like to discuss?</Label>
-                    <Input id="s-topic" value={formData.topic} onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                    <Label htmlFor="s-topic" className="text-sm text-white/50">
+                      What would you like to discuss?
+                    </Label>
+                    <Input id="s-topic" value={formData.topic} onChange={set("topic")}
                       className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 h-11 rounded-xl"
                       placeholder="e.g. Radiology equipment, ICU setup, lab automation" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="s-message" className="text-sm text-white/50">Additional Notes</Label>
-                    <Textarea id="s-message" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    <Textarea id="s-message" value={formData.message} onChange={set("message")}
                       className="bg-white/[0.03] border-white/8 text-white placeholder:text-white/20 focus:border-cyan/40 rounded-xl min-h-[80px] resize-none"
                       placeholder="Anything specific you'd like us to prepare for the demo?" />
                   </div>
-                  <Button type="submit"
-                    className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-                    Confirm Booking
-                  </Button>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Button type="submit" disabled={submitting || authLoading}
+                      className="bg-cyan hover:bg-cyan-dim text-navy font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] disabled:opacity-60">
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Booking...
+                        </>
+                      ) : (
+                        "Confirm Booking Request"
+                      )}
+                    </Button>
+                    {!user && (
+                      <span className="text-xs text-white/25">
+                        No account needed — we'll confirm at your email.
+                      </span>
+                    )}
+                  </div>
                 </form>
               </motion.div>
             )}
@@ -271,7 +374,9 @@ export default function Schedule() {
           {/* Summary Sidebar */}
           <SectionReveal delay={0.2}>
             <div className="lg:sticky lg:top-28 h-fit p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Booking Summary</h3>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                Booking Summary
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-cyan/10 flex items-center justify-center text-cyan shrink-0">
@@ -297,13 +402,17 @@ export default function Schedule() {
                   </div>
                   <div>
                     <p className="text-xs text-white/30">Type</p>
-                    <p className="text-sm text-white/70">{bookingTypes.find((bt) => bt.key === bookingType)?.label}</p>
+                    <p className="text-sm text-white/70">
+                      {bookingTypes.find((bt) => bt.key === bookingType)?.label}
+                    </p>
                   </div>
                 </div>
               </div>
               <div className="mt-6 pt-4 border-t border-white/5">
                 <p className="text-xs text-white/20 leading-relaxed">
-                  Sessions typically last 30–45 minutes. Our specialist will prepare a tailored walkthrough based on the products or solutions you're interested in.
+                  Sessions typically last 30–45 minutes. Our specialist will
+                  prepare a tailored walkthrough based on the products or
+                  solutions you're interested in.
                 </p>
               </div>
             </div>

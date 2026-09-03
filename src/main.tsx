@@ -139,9 +139,23 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route
+                path="/checkout"
+                element={
+                  <RequireAuth>
+                    <Checkout />
+                  </RequireAuth>
+                }
+              />
               <Route path="/schedule" element={<Schedule />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route
+                path="/admin"
+                element={
+                  <RequireAuth>
+                    <Admin />
+                  </RequireAuth>
+                }
+              />
               <Route
                 path="/auth"
                 element={<AuthPage redirectAfterAuth="/dashboard" />}

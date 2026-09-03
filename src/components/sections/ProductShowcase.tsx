@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { PRODUCTS, SHOWCASE_CATEGORIES } from "@/data/content";
 import { SectionReveal, AnimatedLineDivider } from "@/components/animations";
@@ -63,9 +64,10 @@ export function ProductShowcase() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             {filteredProducts.map((product) => (
-              <div
+              <Link
                 key={product.id}
-                className="group relative rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 overflow-hidden transition-all duration-500"
+                to={`/products/${product.id}`}
+                className="group relative rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 overflow-hidden transition-all duration-500 block"
               >
                 {/* Product Image */}
                 <div className="aspect-[4/3] relative overflow-hidden bg-white/[0.02]">
@@ -109,11 +111,19 @@ export function ProductShowcase() {
                   <p className="text-sm text-white/35 leading-relaxed line-clamp-2 mb-3">
                     {product.shortDescription}
                   </p>
-                  <span className="text-sm font-semibold text-white/60">
-                    {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(product.price)}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-white/60">
+                      {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(product.price)}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-xs text-cyan/70 font-medium">
+                      Details
+                      <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </motion.div>
         </AnimatePresence>
@@ -121,15 +131,15 @@ export function ProductShowcase() {
         {/* View All CTA */}
         <SectionReveal delay={0.1}>
           <div className="mt-12 text-center">
-            <a
-              href="/products"
+            <Link
+              to="/products"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-white/50 hover:text-cyan hover:border-cyan/30 text-sm font-medium transition-all duration-300"
             >
               View All Products
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
+            </Link>
           </div>
         </SectionReveal>
       </div>

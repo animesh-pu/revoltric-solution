@@ -1,12 +1,13 @@
+import { PRODUCTS, SOLUTIONS, PROJECT_STEPS } from "@/data/content";
 import { SectionReveal, Stagger, AnimatedLineDivider } from "@/components/animations";
 
 const PILLARS = [
   { label: "Complete Catalogue", icon: "⬡" },
-  { label: "Quality Assured", icon: "◈" },
+  { label: "Quality Focused", icon: "◈" },
   { label: "Expert Support", icon: "◆" },
-  { label: "Fast Delivery", icon: "●" },
+  { label: "Reliable Supply", icon: "●" },
   { label: "Demo Booking", icon: "◉" },
-  { label: "Secure Checkout", icon: "◎" },
+  { label: "Long-Term Partnership", icon: "◎" },
 ];
 
 export function About() {
@@ -57,10 +58,10 @@ export function About() {
         <SectionReveal delay={0.1}>
           <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: "100+", label: "Products" },
-              { value: "6", label: "Solution Categories" },
-              { value: "100%", label: "Quality Assurance" },
-              { value: "24/7", label: "Support Available" },
+              { value: String(PRODUCTS.length), label: "Curated Products" },
+              { value: String(SOLUTIONS.length), label: "Solution Categories" },
+              { value: String(PROJECT_STEPS.length), label: "Project Stages Supported" },
+              { value: "1 day", label: "Enquiry Response Time" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-3xl sm:text-4xl font-bold text-gradient mb-2">

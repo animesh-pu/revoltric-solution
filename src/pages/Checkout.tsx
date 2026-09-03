@@ -452,8 +452,7 @@ export default function Checkout() {
             </div>
 
             {/* Order Summary Sidebar */}
-            {step !== "done" && (
-              <SectionReveal delay={0.1}>
+            <SectionReveal delay={0.1}>
                 <div className="lg:sticky lg:top-28 h-fit p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
                   <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                     Order Summary
@@ -477,10 +476,8 @@ export default function Checkout() {
                         {formatPrice(total)}
                       </span>
                     </div>
-                  </div>
-                </div>
-              </SectionReveal>
-            )}
+                  </div>              </div>
+            </SectionReveal>
           </div>
         )}
       </div>
