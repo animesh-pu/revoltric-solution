@@ -121,14 +121,16 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
             <>
               <CardHeader className="text-center">
               <div className="flex justify-center">
-                    <img
-                      src={logo}
-                      alt="Revoltric Solutions"
-                      width={64}
-                      height={64}
-                      className="rounded-xl mb-4 mt-4 cursor-pointer"
+                    <div
+                      className="w-16 h-16 rounded-2xl bg-navy/[0.04] p-2 mb-4 mt-4 cursor-pointer"
                       onClick={() => navigate("/")}
-                    />
+                    >
+                      <img
+                        src={logo}
+                        alt="Revoltric Solutions"
+                        className="w-full h-full"
+                      />
+                    </div>
                   </div>
                 <CardTitle className="text-xl">Get Started</CardTitle>
                 <CardDescription>

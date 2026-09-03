@@ -84,13 +84,9 @@ export function Navigation() {
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <img
-              src={logo}
-              alt="Revoltric Solutions"
-              width={38}
-              height={38}
-              className="rounded-xl transition-transform duration-300 group-hover:scale-105"
-            />
+            <div className="w-[38px] h-[38px] rounded-xl bg-white p-[5px] shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <img src={logo} alt="Revoltric Solutions" className="w-full h-full" />
+            </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold tracking-[0.1em] text-white leading-tight">
                 Revoltric
