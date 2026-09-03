@@ -3,12 +3,24 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HERO_BACKGROUND_IMAGE } from "@/data/content";
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy-light to-navy" />
+
+      {/* Diagnostic suite photo backdrop */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={HERO_BACKGROUND_IMAGE}
+          alt=""
+          aria-hidden
+          className="w-full h-full object-cover object-center opacity-[0.17]"
+        />
+      </div>
+      <div className="absolute inset-0 bg-navy/55" />
 
       {/* Animated grid pattern */}
       <div className="absolute inset-0 opacity-[0.03]">

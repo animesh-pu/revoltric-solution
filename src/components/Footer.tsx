@@ -96,7 +96,7 @@ export function Footer() {
                 </li>
                 <li className="text-sm text-white/35">
                   <span className="text-white/50 font-medium block mb-1">Office</span>
-                  <span>Sector 3, 6B, Naccri Vihar,<br />Bhubaneswar — 751021, India</span>
+                  <span>Sector 3, 6B, Niladri Vihar,<br />Bhubaneswar — 751021, India</span>
                 </li>
               </ul>
             </div>

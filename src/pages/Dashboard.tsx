@@ -235,8 +235,20 @@ export default function Dashboard() {
                   {savedProducts.map((product) => (
                     <Link key={product.id} to={`/products/${product.id}`}
                       className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 transition-all group">
-                      <div className="w-16 h-16 rounded-xl bg-cyan/[0.06] flex items-center justify-center text-cyan/30 shrink-0">
-                        <Eye className="w-5 h-5" />
+                      <div className="w-16 h-16 rounded-xl bg-white/[0.02] shrink-0 overflow-hidden relative">
+                        {product.image ? (
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-cyan/[0.06] flex items-center justify-center text-cyan/30">
+                            <Eye className="w-5 h-5" />
+                          </div>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <span className="text-[10px] text-cyan/50 uppercase tracking-wider">{product.category}</span>

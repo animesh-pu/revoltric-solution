@@ -126,11 +126,24 @@ export default function Products() {
                 to={`/products/${product.id}`}
                 className="group block rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 overflow-hidden transition-all duration-500"
               >
-                {/* Image Placeholder */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-white/[0.03] to-white/[0.01] flex items-center justify-center relative overflow-hidden">
-                  <div className="w-16 h-16 rounded-2xl bg-cyan/[0.08] flex items-center justify-center text-cyan/30 group-hover:text-cyan group-hover:bg-cyan/[0.12] transition-all duration-500">
-                    <FileText className="w-6 h-6" />
-                  </div>
+                {/* Product Image */}
+                <div className="aspect-[4/3] relative overflow-hidden bg-white/[0.02]">
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-2xl bg-cyan/[0.08] flex items-center justify-center text-cyan/30 group-hover:text-cyan group-hover:bg-cyan/[0.12] transition-all duration-500">
+                        <FileText className="w-6 h-6" />
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 <div className="p-6">

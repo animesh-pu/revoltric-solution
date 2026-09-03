@@ -180,7 +180,7 @@ export function Contact() {
                     <div>
                       <p className="text-xs text-white/30 mb-1">Office Address</p>
                       <p className="text-sm text-white/70">
-                        Sector 3, 6B, Naccri Vihar,<br />
+                        Sector 3, 6B, Niladri Vihar,<br />
                         Bhubaneswar — 751021<br />
                         Odisha, India
                       </p>
@@ -200,13 +200,28 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="p-8 rounded-2xl border border-white/5 bg-white/[0.02]">
-                <div className="aspect-[4/3] rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-8 h-8 text-white/15 mx-auto mb-3" />
-                    <p className="text-xs text-white/25">Google Maps embed placeholder</p>
-                  </div>
+              {/* Map */}
+              <div className="rounded-2xl border border-white/5 overflow-hidden">
+                <div className="aspect-[4/3] w-full relative">
+                  <iframe
+                    title="Revoltric Solutions — Niladri Vihar, Bhubaneswar"
+                    src="https://www.google.com/maps?q=Niladri+Vihar,+Bhubaneswar,+Odisha+751021&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0 w-full h-full border-0 grayscale contrast-[1.05] opacity-80"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="px-5 py-4 bg-white/[0.02] border-t border-white/5 flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-cyan shrink-0" />
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Niladri+Vihar+Bhubaneswar+751021"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-white/50 hover:text-cyan transition-colors"
+                  >
+                    Sector 3, 6B, Niladri Vihar, Bhubaneswar — 751021 — Open in Google Maps
+                  </a>
                 </div>
               </div>
             </div>

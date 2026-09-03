@@ -66,6 +66,13 @@ export interface Order {
   status: "pending" | "processing" | "shipped" | "delivered";
 }
 
+// Hero backdrop: modern digital radiography suite (representative stock photo).
+export const HERO_BACKGROUND_IMAGE =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1280px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg";
+
+// Product photos below are representative, license-compatible stock images of the
+// corresponding equipment type (Wikimedia Commons / Flickr CC). Swap with
+// Revoltric's own catalogue photography before launch.
 export const SOLUTIONS: SolutionCategory[] = [
   {
     id: "radiology",
@@ -183,7 +190,8 @@ export const PRODUCTS: Product[] = [
       "Workstation": "Dedicated imaging workstation included",
     },
     applications: ["General Radiography", "Chest Imaging", "Orthopedic Imaging", "Emergency Departments"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg/1280px-Hospital_Radiology_Room_Philips_DigitalDiagnost_Digital_Radiography_System.jpg",
     inStock: true,
   },
   {
@@ -210,7 +218,8 @@ export const PRODUCTS: Product[] = [
       "Battery": "Up to 2 hours continuous",
     },
     applications: ["Point-of-Care", "Emergency Medicine", "Obstetrics", "Cardiology"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Abdominal_Ultrasound_Imaging_in_Navi_Mumbai.jpg/1280px-Abdominal_Ultrasound_Imaging_in_Navi_Mumbai.jpg",
     inStock: true,
   },
   {
@@ -237,7 +246,8 @@ export const PRODUCTS: Product[] = [
       "Software": "Full diagnostic viewer included",
     },
     applications: ["Neurology", "Oncology", "Cardiac", "Trauma", "Screening"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/AS%26E_CT_Scanner.jpg/1280px-AS%26E_CT_Scanner.jpg",
     inStock: true,
   },
   {
@@ -264,7 +274,8 @@ export const PRODUCTS: Product[] = [
       "Weight": "Approx. 350 kg",
     },
     applications: ["Orthopedic Surgery", "Cardiology", "Pain Management", "Vascular Procedures"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mobile_X-ray_machine.jpg/1280px-Mobile_X-ray_machine.jpg",
     inStock: true,
   },
   {
@@ -291,7 +302,8 @@ export const PRODUCTS: Product[] = [
       "Data Storage": "Unlimited patient records",
     },
     applications: ["Clinical Chemistry", "Liver Function", "Kidney Function", "Lipid Profile", "Diabetes"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Hit917.jpg/1280px-Hit917.jpg",
     inStock: true,
   },
   {
@@ -318,7 +330,8 @@ export const PRODUCTS: Product[] = [
       "Connectivity": "RS-232, USB, LAN",
     },
     applications: ["Complete Blood Count", "Hematology Labs", "Blood Banks", "Point-of-Care Testing"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Sysmex_XT-4000i.jpg/1280px-Sysmex_XT-4000i.jpg",
     inStock: true,
   },
   {
@@ -345,7 +358,8 @@ export const PRODUCTS: Product[] = [
       "Weight": "3.5 kg",
     },
     applications: ["ICU", "Operation Theatre", "Emergency", "General Ward", "Step-down Units"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hospital_Patient_Monitor_%2817239884329%29.jpg/1280px-Hospital_Patient_Monitor_%2817239884329%29.jpg",
     inStock: true,
   },
   {
@@ -372,7 +386,8 @@ export const PRODUCTS: Product[] = [
       "Battery Backup": "Up to 2 hours",
     },
     applications: ["ICU", "Emergency Medicine", "Anesthesia", "Neonatal Care", "Transport"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Draeger_evita_dura_respirator.jpg/1280px-Draeger_evita_dura_respirator.jpg",
     inStock: true,
   },
   {
@@ -399,7 +414,8 @@ export const PRODUCTS: Product[] = [
       "Alarms": "8 alarm categories",
     },
     applications: ["ICU", "General Ward", "Oncology", "Pediatrics", "Emergency"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Syringe_infusion_pump.jpg/1280px-Syringe_infusion_pump.jpg",
     inStock: true,
   },
   {
@@ -426,7 +442,8 @@ export const PRODUCTS: Product[] = [
       "Noise Level": "< 56 dB",
     },
     applications: ["Clinical Chemistry", "Blood Separation", "Urine Analysis", "Research"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Centrifugeuse_m%C3%A9dicale_de_laboratoire_dans_un_centre_de_sant%C3%A9_au_B%C3%A9nin_03.jpg/1280px-Centrifugeuse_m%C3%A9dicale_de_laboratoire_dans_un_centre_de_sant%C3%A9_au_B%C3%A9nin_03.jpg",
     inStock: true,
   },
   {
@@ -453,7 +470,8 @@ export const PRODUCTS: Product[] = [
       "Battery": "Rechargeable Li-ion",
     },
     applications: ["Cardiology", "Emergency", "General Screening", "Pre-operative", "Sports Medicine"],
-    image: "",
+    image:
+      "https://live.staticflickr.com/7092/7301122070_4e175a42bc_b.jpg",
     inStock: true,
   },
   {
@@ -480,7 +498,8 @@ export const PRODUCTS: Product[] = [
       "Software": "Image analysis & reporting",
     },
     applications: ["Pathology", "Histology", "Hematology", "Microbiology", "Research"],
-    image: "",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bresser_binocular_microscope_and_a_Stereo_microscope.jpg/1280px-Bresser_binocular_microscope_and_a_Stereo_microscope.jpg",
     inStock: true,
   },
 ];

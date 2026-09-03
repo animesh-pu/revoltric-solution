@@ -67,23 +67,36 @@ export function ProductShowcase() {
                 key={product.id}
                 className="group relative rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 overflow-hidden transition-all duration-500"
               >
-                {/* Image placeholder */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-white/[0.03] to-white/[0.01] flex items-center justify-center relative overflow-hidden">
-                  <div className="w-20 h-20 rounded-2xl bg-cyan/[0.08] flex items-center justify-center text-cyan/40 group-hover:text-cyan group-hover:bg-cyan/[0.12] transition-all duration-500">
-                    <svg
-                      className="w-8 h-8"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1}
-                    >
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <path d="M21 15l-5-5L5 21" />
-                    </svg>
-                  </div>
+                {/* Product Image */}
+                <div className="aspect-[4/3] relative overflow-hidden bg-white/[0.02]">
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="w-20 h-20 rounded-2xl bg-cyan/[0.08] flex items-center justify-center text-cyan/40 group-hover:text-cyan group-hover:bg-cyan/[0.12] transition-all duration-500">
+                        <svg
+                          className="w-8 h-8"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={1}
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <path d="M21 15l-5-5L5 21" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-cyan/0 group-hover:bg-cyan/[0.02] transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 <div className="p-6">

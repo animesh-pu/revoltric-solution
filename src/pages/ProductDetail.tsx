@@ -70,10 +70,22 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Image */}
           <SectionReveal>
-            <div className="aspect-square rounded-3xl bg-white/[0.02] border border-white/5 flex items-center justify-center relative overflow-hidden">
-              <div className="w-32 h-32 rounded-3xl bg-cyan/[0.08] flex items-center justify-center text-cyan/30">
-                <FileText className="w-12 h-12" />
-              </div>
+            <div className="aspect-square rounded-3xl bg-white/[0.02] border border-white/5 relative overflow-hidden">
+              {product.image ? (
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  fetchPriority="high"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-3xl bg-cyan/[0.08] flex items-center justify-center text-cyan/30">
+                    <FileText className="w-12 h-12" />
+                  </div>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent pointer-events-none" />
               <div className="absolute top-6 left-6">
                 <span className="px-3 py-1.5 rounded-lg bg-cyan/10 text-cyan text-xs font-medium border border-cyan/20">
                   {product.category}
@@ -220,10 +232,16 @@ export default function ProductDetail() {
                   to={`/products/${relatedProduct.id}`}
                   className="group block rounded-2xl border border-white/5 bg-white/[0.02] hover:border-cyan/20 overflow-hidden transition-all duration-500"
                 >
-                  <div className="aspect-[4/3] bg-white/[0.02] flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-xl bg-cyan/[0.06] flex items-center justify-center text-cyan/30 group-hover:text-cyan transition-colors">
-                      <FileText className="w-5 h-5" />
-                    </div>
+                  <div className="aspect-[4/3] bg-white/[0.02] flex items-center justify-center relative overflow-hidden">
+                    {relatedProduct.image && (
+                      <img
+                        src={relatedProduct.image}
+                        alt={relatedProduct.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
                   </div>
                   <div className="p-5">
                     <span className="text-[10px] text-cyan/50 uppercase tracking-wider">
