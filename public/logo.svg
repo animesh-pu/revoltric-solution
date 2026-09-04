@@ -1,23 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Revoltric Solutions logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="REVOLTRIC favicon">
   <!-- White tile -->
   <rect width="512" height="512" rx="108" fill="#FFFFFF"/>
-  <defs>
-    <clipPath id="cross">
-      <rect x="188" y="76" width="136" height="360" rx="40"/>
-      <rect x="76" y="188" width="360" height="136" rx="40"/>
-    </clipPath>
-  </defs>
-  <!-- Cross with diagonal colour split -->
-  <g clip-path="url(#cross)">
-    <polygon points="0,0 512,0 512,512" fill="#0FA3A0"/>
-    <polygon points="0,0 0,512 512,512" fill="#0B1F4B"/>
-  </g>
-  <!-- White ECG heartbeat -->
-  <path
-    d="M256,92 L256,152 L234,160 L244,172 L256,176 L234,184 L206,132 L234,200 L256,208 L256,412"
-    stroke="#FFFFFF"
-    stroke-width="18"
+  <!-- Teal rounded square -->
+  <rect x="56" y="56" width="400" height="400" rx="88" fill="#1DBFB3"/>
+  <!-- White medical cross -->
+  <rect x="172" y="92" width="168" height="328" rx="16" fill="#FFFFFF"/>
+  <rect x="92" y="172" width="328" height="168" rx="16" fill="#FFFFFF"/>
+  <!-- ECG heartbeat pulse line -->
+  <polyline
+    points="72,256 136,256 164,256 180,224 196,288 220,184 244,280 260,240 276,256 340,256 440,256"
     fill="none"
+    stroke="#1DBFB3"
+    stroke-width="16"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
